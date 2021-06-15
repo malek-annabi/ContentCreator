@@ -10,9 +10,9 @@ router.get('/', function (req, res) {
 });
 // Import contact controller
 var adminController = require('./adminController');
-router.route('/admins')
-    .get(adminController.index)
-    .post(adminController.new);
+router.route('/admins').get(adminController.index);
+router.route('/admins').post(adminController.new);
+    
 router.route('/admins/:admin_id')
     .get(adminController.view)
     .patch(adminController.update)

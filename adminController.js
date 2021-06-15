@@ -19,7 +19,7 @@ exports.index = function (req, res) {
 };
 // Handle create admin actions
 exports.new = function (req, res) {
-    admin=new admmin();
+    admin=new admin();
     admin.name = req.body.name; 
     admin.firstname = req.body.firstname;
     admin.address = req.body.address;
