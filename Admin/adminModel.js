@@ -1,5 +1,6 @@
 // contactModel.js
 var mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 // Setup schema
 var adminSchema = mongoose.Schema({
     name: String,
@@ -9,6 +10,7 @@ var adminSchema = mongoose.Schema({
     idnumber: Number,
     addess: String,
     password: String,
+    clips: [{ type: Schema.Types.ObjectId, ref: 'clip' }]
 });
 // Export Contact model
 var admin = module.exports = mongoose.model('admin', adminSchema);
