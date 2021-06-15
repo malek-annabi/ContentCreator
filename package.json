@@ -1,0 +1,29 @@
+{
+  "name": "contentcreator",
+  "version": "1.0.0",
+  "description": "Content Craetor Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malek-annabi/ContentCreator.git"
+  },
+  "keywords": [
+    "Content",
+    "Creator",
+    "Gaming",
+    "Games"
+  ],
+  "author": "malek annabi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/malek-annabi/ContentCreator/issues"
+  },
+  "homepage": "https://github.com/malek-annabi/ContentCreator#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.6.9"
+  }
+}
