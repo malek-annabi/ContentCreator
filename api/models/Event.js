@@ -1,16 +1,21 @@
 // contactModel.js
 var mongoose = require('mongoose');
+//schema
 const Event = mongoose.model(
     "Event",
     new mongoose.Schema({
         name: String,
-        time: Date,
+        time: String,
         description: String,
         photo: String,
         status: String,
         trailer: String,
         rules: String,
-    })
-  );
-  //admin model Extraction
+        postedBy:String
+    },
+    {
+        timestamps:true
+      })
+    );
+  //Event model Extraction
   module.exports = Event;

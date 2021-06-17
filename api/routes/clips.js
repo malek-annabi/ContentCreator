@@ -1,23 +1,10 @@
-const expres=require("express");
-const router = expres.Router();
 
-router.get('/',(req,res,next)=>{
-    res.status(200).json({message:"clips works!"});
-});
+const checkAuth = require("../middleware/check-auth")
 
-router.post('/',(req,res,next)=>{
-    res.status(200).json({message:"clips added works!"});
-});
-router.get('/:clipId',(req,res,next)=>{
-    const id = req.params.clipId;
-    res.status(200).json({message:"clips works with id !"});
-});
-router.patch('/:clipId',(req,res,next)=>{
-    const id = req.params.clipId;
-    res.status(200).json({message:"clips updated !"});
-});
-router.delete('/:clipId',(req,res,next)=>{
-    const id = req.params.clipId;
-    res.status(200).json({message:"clips deleted!"});
-});
-module.exports=router;
+// routes extraction + function association for every route
+module.exports=(app)=>{
+    const clipController=require('../controllers/clipController');
+    app.get('/',clipController.clips_get_all)
+    app.post('/',checkAuth,clipController.clips_create_clip)
+    app.patch('/:clipId',checkAuth,clipController.clips_update_clip)
+}
