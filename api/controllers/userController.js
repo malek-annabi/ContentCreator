@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const jwt=require('jsonwebtoken')
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 // Users manegement 
 
@@ -68,18 +69,16 @@ exports.user_signup = (req, res, next) => {
             const token = jwt.sign(
               {
                 username: user[0].username,
-                userId: user[0]._id,
+                userId: user[0]._id
               },
               process.env.JWT_KEY,
               {
                 expiresIn: "4h"
               }
             );
-              module.exports.connected =  User.find({ username: req.body.username })
             return res.status(200).json({
               message: "Auth successful",
-              token: token,
-              email:user[0].email
+              token: token
             });
           }
           res.status(401).json({

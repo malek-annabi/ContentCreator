@@ -1,6 +1,5 @@
 const Event = require("../models/Event");
 
-
 // Events manegement 
 
 
@@ -39,34 +38,6 @@ exports.events_get_all = (req, res, next) => {
       });
     });
 };
-
-//get a specific event
-exports.events_get_event = (req, res, next) => {
-  const id = req.params.eventId;
-  Event.findById(id)
-    .select("name time description photo status trailer rules postedBy")
-    .exec()
-    .then(doc => {
-      if (doc) {
-        res.status(200).json({
-          event: doc,
-          request: {
-            type: "GET",
-            url: "http://localhost:3000/event"
-          }
-        });
-      } else {
-        res
-          .status(404)
-          .json({ message: "No valid entry found for provided ID" });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    });
-}
-
 
 //Create
 exports.events_create_event = (req, res) => {
