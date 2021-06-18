@@ -4,6 +4,7 @@ const checkAuth = require("../middleware/check-auth")
 module.exports=(app)=>{
     const eventController=require('../controllers/eventController');
     app.get('/events',eventController.events_get_all)
+    app.get('/events/:eventId',checkAuth,eventController.events_get_event)
     app.post('/events',checkAuth,eventController.events_create_event)
     app.patch('/events/:eventId',checkAuth,eventController.events_update_event)
     app.delete('/events/:eventId',checkAuth,eventController.events_delete)

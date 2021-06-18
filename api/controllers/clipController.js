@@ -18,7 +18,7 @@ exports.clips_get_all = (req, res, next) => {
             _id: doc._id,
             request: {
               type: "GET",
-              url: "http://localhost:3000/products/" + doc._id
+              url: "http://localhost:3000/clips/" + doc._id
             }
           };
         })
@@ -32,6 +32,34 @@ exports.clips_get_all = (req, res, next) => {
       });
     });
 };
+
+//get a spesific clip
+exports.clips_get_clip = (req, res, next) => {
+  const id = req.params.clipId;
+  Clip.findById(id)
+    .select("name description link")
+    .exec()
+    .then(doc => {
+      if (doc) {
+        res.status(200).json({
+          clip: doc,
+          request: {
+            type: "GET",
+            url: "http://localhost:3000/clips"
+          }
+        });
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+}
+
 //Create
 exports.clips_create_clip = (req, res) => {
     const clip = new Clip({
@@ -53,6 +81,7 @@ exports.clips_create_clip = (req, res) => {
         });
       });
   };
+
 //update
   exports.clips_update_clip = (req, res, next) => {
     const id = req.params.clipId;
