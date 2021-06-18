@@ -10,16 +10,12 @@ exports.clips_get_all = (req, res, next) => {
     .then(docs => {
       const response = {
         count: docs.length,
-        products: docs.map(doc => {
+        clips: docs.map(doc => {
           return {
             name: doc.name,
-            price: doc.link,
-            productImage: doc.description,
+            link: doc.link,
+            description: doc.description,
             _id: doc._id,
-            request: {
-              type: "GET",
-              url: "http://localhost:3000/products/" + doc._id
-            }
           };
         })
       };
