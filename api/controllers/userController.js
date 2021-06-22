@@ -78,7 +78,9 @@ exports.user_signup = (req, res, next) => {
             );
             return res.status(200).json({
               message: "Auth successful",
-              token: token
+              token: token,
+              username: user[0].username,
+                _Id: user[0]._id
             });
           }
           res.status(401).json({

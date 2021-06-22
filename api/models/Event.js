@@ -9,7 +9,7 @@ const Event = mongoose.model(
         description: String,
         photo: String,
         status: String,
-        trailer: String,
+        link: String,
         rules: String,
         postedBy:String
     },

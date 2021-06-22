@@ -6,7 +6,7 @@ const Event = require("../models/Event");
 //get all
 exports.events_get_all = (req, res, next) => {
   Event.find()
-    .select("name time description photo status trailer rules postedBy")
+    .select("name time description photo status link rules postedBy")
     .exec()
     .then(docs => {
       const response = {
@@ -18,14 +18,10 @@ exports.events_get_all = (req, res, next) => {
             description: doc.description,
             photo: doc.photo,
             status: doc.status,
-            trailer: doc.trailer,
+            link: doc.link,
             rules: doc.rules,
             postedBy:doc.postedBy,
             _id: doc._id,
-            request: {
-              type: "GET",
-              url: "http://localhost:3000/events/" + doc._id
-            }
           };
         })
       };
@@ -47,7 +43,7 @@ exports.events_create_event = (req, res) => {
         description: req.body.description,
         photo: req.body.photo,
         status: req.body.status,
-        trailer: req.body.trailer,
+        link: req.body.trailer,
         rules: req.body.rules,
         postedBy:req.body.postedBy,
     });

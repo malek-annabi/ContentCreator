@@ -1,8 +1,11 @@
 // express
 const express =require("express");
-const app =express();
+const cors = require('cors')
 
-// .env
+const app =express();
+app.use(cors())
+
+
 require("dotenv").config();
 
 //mongoose
