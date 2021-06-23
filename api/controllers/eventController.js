@@ -6,7 +6,7 @@ const Event = require("../models/Event");
 //get all
 exports.events_get_all = (req, res, next) => {
   Event.find()
-    .select("name time description photo status link rules postedBy")
+    .select("name time description photo status link rules postedBy createdAt updatedAt")
     .exec()
     .then(docs => {
       const response = {
@@ -21,6 +21,8 @@ exports.events_get_all = (req, res, next) => {
             link: doc.link,
             rules: doc.rules,
             postedBy:doc.postedBy,
+            createdAt:doc.createdAt,
+            updatedAt:doc.updatedAt,
             _id: doc._id,
           };
         })
@@ -43,7 +45,7 @@ exports.events_create_event = (req, res) => {
         description: req.body.description,
         photo: req.body.photo,
         status: req.body.status,
-        link: req.body.trailer,
+        link: req.body.link,
         rules: req.body.rules,
         postedBy:req.body.postedBy,
     });
@@ -94,14 +96,30 @@ exports.events_create_event = (req, res) => {
       .then(result => {
         res.status(200).json({
           message: "Event deleted",
-          request: {
-            type: "POST",
-            url: "http://localhost:3000/products",
-          }
         });
       })
       .catch(err => {
         console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+      
+  };
+  exports.get_Event=(req, res, next) => {
+    Event.findById(req.params.eventId)
+      .exec()
+      .then(event => {
+        if (!event) {
+          return res.status(404).json({
+            message: "event not found"
+          });
+        }
+        res.status(200).json({
+          event: event,
+        });
+      })
+      .catch(err => {
         res.status(500).json({
           error: err
         });

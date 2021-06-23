@@ -5,7 +5,7 @@ const Clip = require("../models/Clip");
 //get all
 exports.clips_get_all = (req, res, next) => {
   Clip.find()
-    .select("name link description")
+    .select("name link description status createdAt updatedAt")
     .exec()
     .then(docs => {
       const response = {
@@ -15,6 +15,9 @@ exports.clips_get_all = (req, res, next) => {
             name: doc.name,
             link: doc.link,
             description: doc.description,
+            status:doc.status,
+            createdAt: doc.createdAt,
+            updatedAt: doc.updatedAt,
             _id: doc._id,
           };
         })
@@ -34,7 +37,8 @@ exports.clips_create_clip = (req, res) => {
       name: req.body.name,
       link: req.body.link,
       description: req.body.description,
-      postedBy:req.body.postedBy
+      postedBy:req.body.postedBy,
+      status:'active'
     });
     clip
       .save()
@@ -74,6 +78,7 @@ exports.clips_create_clip = (req, res) => {
 //delete
   exports.clips_delete = (req, res, next) => {
     const id = req.params.clipId;
+    console.log(id)
     Clip.findOneAndUpdate({_id: id}, {status:"archived"})
       .exec()
       .then(result => {
@@ -87,6 +92,25 @@ exports.clips_create_clip = (req, res) => {
       })
       .catch(err => {
         console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+  };
+  exports.get_Clip=(req, res, next) => {
+    Clip.findById(req.params.clipId)
+      .exec()
+      .then(clip => {
+        if (!clip) {
+          return res.status(404).json({
+            message: "clip not found"
+          });
+        }
+        res.status(200).json({
+          clip: clip,
+        });
+      })
+      .catch(err => {
         res.status(500).json({
           error: err
         });
