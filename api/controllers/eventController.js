@@ -5,36 +5,10 @@ const Event = require("../models/Event");
 
 //get all
 exports.events_get_all = (req, res, next) => {
+  console.log('test')
+  //console.log(Event.find())
   Event.find()
-    .select("name time description photo status link rules postedBy createdAt updatedAt")
-    .exec()
-    .then(docs => {
-      const response = {
-        count: docs.length,
-        events: docs.map(doc => {
-          return {
-            name: doc.name,
-            time: doc.time,
-            description: doc.description,
-            photo: doc.photo,
-            status: doc.status,
-            link: doc.link,
-            rules: doc.rules,
-            postedBy:doc.postedBy,
-            createdAt:doc.createdAt,
-            updatedAt:doc.updatedAt,
-            _id: doc._id,
-          };
-        })
-      };
-      res.status(200).json(response);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
+  res.status(200).json(response);
 };
 
 //Create

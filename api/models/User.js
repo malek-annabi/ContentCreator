@@ -1,20 +1,15 @@
 // contactModel.js
 var mongoose = require('mongoose');
+
+
 //schema
-const User = mongoose.model(
-    "User",
-    new mongoose.Schema({
-        name: String,
-        firstname: String,
+const userSchema = mongoose.Schema({
         username: String,
-        email: String,
         password: String,
-        idnumber: String,
-        address: String,
     },
     {
         timestamps:true
-      })
-    );
-  //Admin model Extraction
-  module.exports = User;
+      });
+      
+// User model extraction
+module.exports = mongoose.model('User',userSchema);

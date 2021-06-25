@@ -1,10 +1,10 @@
-const checkAuth = require("../middleware/check-auth")
+const eventController=require('../controllers/envetController');
 
 // routes extraction + function association for every route
 module.exports=(app)=>{
-    const eventController=require('../controllers/eventController');
-    app.get('/events',eventController.events_get_all)
-    app.post('/events',checkAuth,eventController.events_create_event)
-    app.patch('/events/:eventId',checkAuth,eventController.events_update_event)
-    app.delete('/events/:eventId',checkAuth,eventController.events_delete)
+    app.get('/event',eventController.findAllEvents)
+    app.get('/event/:id',eventController.getEvent)
+    app.post('/event',eventController.createEvent);
+    app.patch('/event/:id',eventController.updateEvent)
+    app.delete('/event/:id',eventController.deleteEvent)
 }

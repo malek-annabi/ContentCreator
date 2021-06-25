@@ -1,12 +1,12 @@
-const User = require("../models/User");
+const User=require('../models/User')
 const jwt=require('jsonwebtoken')
 const bcrypt = require("bcrypt");
-require("dotenv").config();
 
-// Users manegement 
 
-//Create
-exports.user_signup = (req, res, next) => {
+
+
+// Create a User
+exports.createUser=(req,res,next)=>{
     User.find({ username: req.body.username })
       .exec()
       .then(user => {
@@ -23,11 +23,6 @@ exports.user_signup = (req, res, next) => {
             } else {
               const user = new User({
                 username: req.body.username,
-                name:req.body.name,
-                firstname:req.body.firstname,
-                address:req.body.address,
-                idnumber:req.body.idnumber,
-                email:req.body.email,
                 password: hash
               });
               user
@@ -48,50 +43,65 @@ exports.user_signup = (req, res, next) => {
           });
         }
       });
-  };
-//login
-  exports.user_login = (req, res, next) => {
+};
+
+exports.findAllUsers= (req,res) => {
+    User.find()
+    .then(users=> {
+        res.send({
+            status:'200',
+            message:
+            "All the users",users
+        });
+    }).catch(err=> {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving users."
+        });
+    });
+};
+
+exports.signIn=(req,res,next)=>{
     User.find({ username: req.body.username })
-      .exec()
-      .then(user => {
-        if (user.length < 1) {
+    .exec()
+    .then(user => {
+      if (user.length < 1) {
+        return res.status(401).json({
+          message: "Auth failed"
+        });
+      }
+      bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+        if (err) {
           return res.status(401).json({
             message: "Auth failed"
           });
         }
-        bcrypt.compare(req.body.password, user[0].password, (err, result) => {
-          if (err) {
-            return res.status(401).json({
-              message: "Auth failed"
-            });
-          }
-          if (result) {
-            const token = jwt.sign(
-              {
-                username: user[0].username,
-                userId: user[0]._id
-              },
-              process.env.JWT_KEY,
-              {
-                expiresIn: "4h"
-              }
-            );
-            return res.status(200).json({
-              message: "Auth successful",
-              token: token,
+        if (result) {
+          const token = jwt.sign(
+            {
               username: user[0].username,
-                _Id: user[0]._id
-            });
-          }
-          res.status(401).json({
-            message: "Auth failed"
+              userId: user[0]._id
+            },
+            "secret",
+            {
+              expiresIn: "4h"
+            }
+          );
+          return res.status(200).json({
+            message: "Auth successful",
+            token: token,
+            username: user[0].username,
+              _Id: user[0]._id
           });
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
+        }
+        res.status(401).json({
+          message: "Auth failed"
         });
       });
-  };
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+}

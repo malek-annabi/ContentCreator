@@ -1,11 +1,10 @@
-// express
 const express =require("express");
-const cors = require('cors')
-
+const cors = require('cors');
 const app =express();
-app.use(cors())
 
-
+//cors
+app.use(cors());
+//.env
 require("dotenv").config();
 
 //mongoose
@@ -30,14 +29,12 @@ app.use((req,res,next)=>{
 mongoose
 .connect("mongodb://localhost/ContentCreator", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify:true
   })
   .then(() => console.log("Successfully connect to MongoDB."))
   .catch(err => console.error("Connection error", err));
 
-//app.get('/',(req,res) =>{
-// res.json({ "message": "welcome malek"})
-//})
 
 // routes imports
 require('./api/routes/clips')(app);
@@ -45,6 +42,6 @@ require('./api/routes/events')(app);
 require('./api/routes/users')(app);
 
 // server start
- app.listen(3001,() =>{
-     console.log( "hello malek")
+ app.listen(3500,() =>{
+     console.log( "port 3500 hello malek");
  })

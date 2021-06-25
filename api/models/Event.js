@@ -1,9 +1,9 @@
-// contactModel.js
+// mongoose
 var mongoose = require('mongoose');
+
+
 //schema
-const Event = mongoose.model(
-    "Event",
-    new mongoose.Schema({
+const eventSchema = mongoose.Schema({
         name: String,
         time: String,
         description: String,
@@ -16,6 +16,8 @@ const Event = mongoose.model(
     {
         timestamps:true
       })
-    );
-  //Event model Extraction
-  module.exports = Event;
+    ;
+
+    
+//Event model Extraction
+module.exports = mongoose.model('Event',eventSchema);

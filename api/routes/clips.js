@@ -1,11 +1,10 @@
-
-const checkAuth = require("../middleware/check-auth")
+const clipController=require('../controllers/clipController');
 
 // routes extraction + function association for every route
 module.exports=(app)=>{
-    const clipController=require('../controllers/clipController');
-    app.get('/',clipController.clips_get_all)
-    app.post('/',checkAuth,clipController.clips_create_clip)
-    app.patch('/:clipId',checkAuth,clipController.clips_update_clip)
-    app.delete('/:clipId',checkAuth,clipController.clips_delete)
+    app.get('/clip',clipController.findAllClips);
+    app.get('/clip/:id',clipController.getClip);
+    app.post('/clip',clipController.createClip);
+    app.patch('/clip/:id',clipController.updateClip)
+    app.delete('/clip/:id',clipController.deleteClip)
 }

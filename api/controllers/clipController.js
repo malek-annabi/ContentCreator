@@ -1,125 +1,97 @@
-const Clip = require("../models/Clip");
+const Clip=require('../models/Clip')
 
-// Clips manegement 
 
-//get all
-exports.clips_get_all = (req, res, next) => {
-  Clip.find()
-    .select("name link description status createdAt updatedAt")
-    .exec()
-    .then(docs => {
-      const response = {
-        count: docs.length,
-        clips: docs.map(doc => {
-          return {
-            name: doc.name,
-            link: doc.link,
-            description: doc.description,
-            status:doc.status,
-            createdAt: doc.createdAt,
-            updatedAt: doc.updatedAt,
-            _id: doc._id,
-          };
-        })
-      };
-      res.status(200).json(response);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
+
+
+exports.createClip=(req,res,next)=>{
+    const clip = new Clip({
+        name: req.body.name,
+        link: req.body.link,
+        description:req.body.description,
+        postedBy:req.body.postedBy,
+        status:"active"
+    });
+// Save User in the database
+    clip.save()
+    .then(data=> {
+        res.send({
+            status:'200',
+            message:"the new clip",data
+        });
+    }).catch(err=> {
+        res.status(500).send({
+            message: err.message ||  "Some error occurred while creating the User."
+    });
     });
 };
-//Create
-exports.clips_create_clip = (req, res) => {
-    const clip = new Clip({
-      name: req.body.name,
-      link: req.body.link,
-      description: req.body.description,
-      postedBy:req.body.postedBy,
-      status:'active'
-    });
-    clip
-      .save()
-      .then(result => {
-        console.log(result);
-        res.status(201).send(result);
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
+
+exports.findAllClips= (req,res) => {
+    Clip.find()
+    .then(clips=> {
+        res.send({
+            status:'200',
+            message:
+            "All the users",clips
         });
-      });
-  };
-//update
-  exports.clips_update_clip = (req, res, next) => {
-    const id = req.params.clipId;
+    }).catch(err=> {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving users."
+        });
+    });
+};
+
+exports.getClip=(req,res,next)=>{
+    const id = req.params.id;
+    Clip.findOne({ '_id': id })
+    .then(clip=> {
+        res.send({
+            status:'200',
+            message:
+            "Clip",clip
+        });
+    }).catch(err=> {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving Clip."
+        });
+    });
+}
+
+
+exports.updateClip=(req,res,next)=>{
+    const id = req.params.id;
     Clip.findOneAndUpdate({_id: id}, {
       name: req.body.name,
       description: req.body.description,
       link: req.body.link,
-      postedBy: req.body.postedBy,
     }).then(
       () => {
-        res.status(201).json({
+        res.status(201).send({
           message: 'Clip updated successfully!'
         });
       }
     ).catch(
       (error) => {
-        res.status(400).json({
+        res.status(400).send({
           error: error
         });
       }
     );
   };
-//delete
-  exports.clips_delete = (req, res, next) => {
-    const id = req.params.clipId;
-    console.log(id)
+
+
+exports.deleteClip=(req,res,next)=>{
+    const id = req.params.id;
     Clip.findOneAndUpdate({_id: id}, {status:"archived"})
       .exec()
       .then(result => {
-        res.status(200).json({
+        res.status(200).send({
           message: "Clip deleted",
-          request: {
-            type: "POST",
-            url: "http://localhost:3000/clips",
-          }
         });
       })
       .catch(err => {
         console.log(err);
-        res.status(500).json({
+        res.status(500).send({
           error: err
         });
       });
-  };
-  exports.get_Clip=(req, res, next) => {
-    Clip.findById(req.params.clipId)
-      .exec()
-      .then(clip => {
-        if (!clip) {
-          return res.status(404).json({
-            message: "clip not found"
-          });
-        }
-        res.status(200).json({
-          clip: clip,
-        });
-      })
-      .catch(err => {
-        res.status(500).json({
-          error: err
-        });
-      });
-  };
-
-
-
-
-
-
-
+}

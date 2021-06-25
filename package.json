@@ -1,13 +1,26 @@
 {
-  "name": "clip-test",
+  "name": "contentcreator-new",
   "version": "1.0.0",
-  "description": "just a clip test",
+  "description": "this is a content creator website ",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malek-annabi/test.git"
+  },
+  "keywords": [
+    "content",
+    "creator",
+    "test"
+  ],
+  "author": "Malek Annabi",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/malek-annabi/test/issues"
+  },
+  "homepage": "https://github.com/malek-annabi/test#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
