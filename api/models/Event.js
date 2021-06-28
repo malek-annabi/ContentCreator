@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 //schema
 const eventSchema = mongoose.Schema({
         name: String,
-        time: String,
+        time: Date,
         description: String,
         photo: String,
         status: String,
