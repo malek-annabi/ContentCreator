@@ -1,6 +1,12 @@
-FROM node:14.17.0
+FROM ubuntu
+RUN apt-get update
+RUN apt-get install nodejs -y 
+RUN apt-get install npm -y
+RUN apt-get install apt-utils -y
 WORKDIR /app
-COPY package.json ./app
+COPY . /
+COPY package*.json ./
 RUN npm install
-COPY . ./app
-CMD {"npm","start"}
+COPY . /
+EXPOSE 3500
+CMD [“node”, “server.js”]
