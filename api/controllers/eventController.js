@@ -4,15 +4,19 @@ const Event = require("../models/Event");
 
 
 //get all
-exports.findaAllEvents = (req, res, next) => {
-  console.log('test')
-  //console.log(Event.find())
+exports.findAllEvents = (req, res, next) => {
   Event.find()
-  res.status(200).send(response);
+  .then(events=> {
+      res.send(events);
+  }).catch(err=> {
+      res.status(500).send({
+          message: err.message || "Some error occurred while retrieving users."
+      });
+  });
 };
 
 //Create
-exports.events_create_event = (req, res) => {
+exports.eventsCreateEvent = (req, res) => {
     const event = new Event({
         name: req.body.name,
         time: req.body.time,
@@ -37,7 +41,7 @@ exports.events_create_event = (req, res) => {
       });
   };
 //update
-  exports.events_update_event = (req, res, next) => {
+  exports.eventsUpdateEvent = (req, res, next) => {
     const id = req.params.eventId;
     Event.findOneAndUpdate({_id: id}, {
         name: req.body.name,
@@ -63,7 +67,7 @@ exports.events_create_event = (req, res) => {
     );
   };
   // delete
-  exports.events_delete = (req, res, next) => {
+  exports.eventsDelete = (req, res, next) => {
     const id = req.params.eventId;
     Event.findOneAndUpdate({_id: id}, {status:"archived"})
       .exec()
@@ -80,7 +84,7 @@ exports.events_create_event = (req, res) => {
       });
       
   };
-  exports.get_Event=(req, res, next) => {
+  exports.getEvent=(req, res, next) => {
     Event.findById(req.params.eventId)
       .exec()
       .then(event => {
