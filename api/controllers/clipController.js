@@ -28,11 +28,7 @@ exports.createClip=(req,res,next)=>{
 exports.findAllClips= (req,res) => {
     Clip.find()
     .then(clips=> {
-        res.send({
-            status:'200',
-            message:
-            "All the users",clips
-        });
+        res.send(clips);
     }).catch(err=> {
         res.status(500).send({
             message: err.message || "Some error occurred while retrieving users."
