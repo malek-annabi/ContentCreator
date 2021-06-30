@@ -1,4 +1,4 @@
-const eventController=require('../controllers/envetController');
+const eventController=require('../controllers/eventController');
 
 // routes extraction + function association for every route
 module.exports=(app)=>{

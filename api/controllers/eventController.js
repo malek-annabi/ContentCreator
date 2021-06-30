@@ -8,7 +8,7 @@ exports.events_get_all = (req, res, next) => {
   console.log('test')
   //console.log(Event.find())
   Event.find()
-  res.status(200).json(response);
+  res.status(200).send(response);
 };
 
 //Create
@@ -31,7 +31,7 @@ exports.events_create_event = (req, res) => {
       })
       .catch(err => {
         console.log(err);
-        res.status(500).json({
+        res.status(500).send({
           error: err
         });
       });
@@ -50,13 +50,13 @@ exports.events_create_event = (req, res) => {
         postedBy:req.body.postedBy,
     }).then(
       () => {
-        res.status(201).json({
+        res.status(201).send({
           message: 'Event updated successfully!'
         });
       }
     ).catch(
       (error) => {
-        res.status(400).json({
+        res.status(400).send({
           error: error
         });
       }
@@ -68,13 +68,13 @@ exports.events_create_event = (req, res) => {
     Event.findOneAndUpdate({_id: id}, {status:"archived"})
       .exec()
       .then(result => {
-        res.status(200).json({
+        res.status(200).send({
           message: "Event deleted",
         });
       })
       .catch(err => {
         console.log(err);
-        res.status(500).json({
+        res.status(500).send({
           error: err
         });
       });
@@ -85,16 +85,16 @@ exports.events_create_event = (req, res) => {
       .exec()
       .then(event => {
         if (!event) {
-          return res.status(404).json({
+          return res.status(404).send({
             message: "event not found"
           });
         }
-        res.status(200).json({
+        res.status(200).send({
           event: event,
         });
       })
       .catch(err => {
-        res.status(500).json({
+        res.status(500).send({
           error: err
         });
       });
