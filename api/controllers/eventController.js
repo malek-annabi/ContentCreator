@@ -47,8 +47,7 @@ exports.eventsCreateEvent = (req, res) => {
         name: req.body.name,
         time: req.body.time,
         description: req.body.description,
-        photo: req.body.photo,
-        status: req.body.status,
+        photo: req.body.photo,  
         trailer: req.body.trailer,
         rules: req.body.rules
     }).then(
