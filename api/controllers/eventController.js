@@ -4,7 +4,7 @@ const Event = require("../models/Event");
 
 
 //get all
-exports.events_get_all = (req, res, next) => {
+exports.findaAllEvents = (req, res, next) => {
   console.log('test')
   //console.log(Event.find())
   Event.find()
