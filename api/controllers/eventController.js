@@ -43,9 +43,7 @@ exports.eventsCreateEvent = (req, res) => {
   exports.eventsUpdateEvent = (req, res, next) => {
     const id = req.params.eventId;
 
-    console.log(id," ",req.body)
-
-    Event.updateOne({_id: id}, {
+    Event.updateOne({_id: req.body._id}, {
         name: req.body.name,
         time: req.body.time,
         description: req.body.description,
