@@ -66,7 +66,7 @@ exports.eventsCreateEvent = (req, res) => {
   };
   // delete
   exports.eventsDelete = (req, res, next) => {
-    const id = req.params.eventId;
+    const id = req.params.id;
     Event.findOneAndUpdate({_id: id}, {status:"archived"})
       .exec()
       .then(result => {
@@ -83,7 +83,7 @@ exports.eventsCreateEvent = (req, res) => {
       
   };
   exports.getEvent=(req, res, next) => {
-    Event.findById(req.params.eventId)
+    Event.findById(req.params.id)
       .exec()
       .then(event => {
         if (!event) {
