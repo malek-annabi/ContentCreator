@@ -22,10 +22,9 @@ exports.eventsCreateEvent = (req, res) => {
         time: req.body.time,
         description: req.body.description,
         photo: req.body.photo,
-        status: req.body.status,
+        status: "active",
         link: req.body.link,
         rules: req.body.rules,
-        postedBy:req.body.postedBy,
     });
     event
       .save()
@@ -43,6 +42,9 @@ exports.eventsCreateEvent = (req, res) => {
 //update
   exports.eventsUpdateEvent = (req, res, next) => {
     const id = req.params.eventId;
+
+    console.log(req.body)
+    
     Event.findOneAndUpdate({_id: id}, {
         name: req.body.name,
         time: req.body.time,
