@@ -41,9 +41,9 @@ exports.eventsCreateEvent = (req, res) => {
   };
 //update
   exports.eventsUpdateEvent = (req, res, next) => {
-    const id = req.params.eventId;
+    const id = req.params.id;
 
-    Event.updateOne({_id: req.body._id}, {
+    Event.updateOne({_id: id}, {
         name: req.body.name,
         time: req.body.time,
         description: req.body.description,
