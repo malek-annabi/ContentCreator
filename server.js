@@ -42,6 +42,6 @@ require('./api/routes/events')(app);
 require('./api/routes/users')(app);
 
 // server start
- app.listen(process.env.PORT,() =>{
+ app.listen(process.env.PORT || 3500,() =>{
      console.log( "port "+process.env.PORT+" hello malek");
  })
