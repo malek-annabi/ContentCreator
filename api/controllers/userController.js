@@ -1,6 +1,7 @@
 const User=require('../models/User')
 const jwt=require('jsonwebtoken')
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 
 
@@ -81,7 +82,7 @@ exports.signIn=(req,res,next)=>{
               username: user[0].username,
               userId: user[0]._id
             },
-            "secret",
+            process.env.JWT_SECRET,
             {
               expiresIn: "4h"
             }
