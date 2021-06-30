@@ -44,8 +44,8 @@ exports.eventsCreateEvent = (req, res) => {
     const id = req.params.eventId;
 
     console.log(req.body)
-    
-    Event.findOneAndUpdate({_id: id}, {
+
+    Event.updateOne({_id: id}, {
         name: req.body.name,
         time: req.body.time,
         description: req.body.description,
