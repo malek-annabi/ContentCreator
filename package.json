@@ -4,7 +4,7 @@
   "description": "this is a content creator website ",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/malek-annabi/ContentCreator/issues"
   },
-  "homepage": "https://github.com/malek-annabi/ContentCreator#readme",
+  "homepage": "https://malek-annabi.github.io/ContentCreator",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",

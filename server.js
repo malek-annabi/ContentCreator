@@ -27,7 +27,7 @@ app.use((req,res,next)=>{
 
 // database conenction 
 mongoose
-.connect("mongodb://localhost/ContentCreator", {
+.connect(process.env.DB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify:true
@@ -42,6 +42,6 @@ require('./api/routes/events')(app);
 require('./api/routes/users')(app);
 
 // server start
- app.listen(3500,() =>{
-     console.log( "port 3500 hello malek");
+ app.listen(process.env.PORT,() =>{
+     console.log( "port "+process.env.PORT+" hello malek");
  })
