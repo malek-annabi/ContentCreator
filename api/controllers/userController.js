@@ -82,7 +82,7 @@ exports.signIn=(req,res,next)=>{
               username: user[0].username,
               userId: user[0]._id
             },
-            process.env.JWT_SECRET,
+            "secret",
             {
               expiresIn: "4h"
             }
