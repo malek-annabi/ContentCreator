@@ -50,8 +50,7 @@ exports.eventsCreateEvent = (req, res) => {
         photo: req.body.photo,
         status: req.body.status,
         trailer: req.body.trailer,
-        rules: req.body.rules,
-        postedBy:req.body.postedBy,
+        rules: req.body.rules
     }).then(
       () => {
         res.status(201).send({
