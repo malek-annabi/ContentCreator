@@ -1,15 +1,4 @@
 const Event = require("../models/Event");
-const multer=require('multer')
-
-const storage=multer.diskStorage({
-  destination:function(req,file,cb){
-    cb(null,'./uploads/')
-  },
-  filename:function(req,file,cb){
-    cb(null,new Date().toISOString()+file.originalname)
-  }
-});
-const uplaod=multer({storage:storage})
 
 // Events manegement 
 
@@ -27,12 +16,12 @@ exports.findAllEvents = (req, res, next) => {
 };
 
 //Create
-exports.eventsCreateEvent = uplaod.single('photo'),(req, res) => {
+exports.eventsCreateEvent = (req, res) => {
     const event = new Event({
         name: req.body.name,
         time: req.body.time,
         description: req.body.description,
-        photo: req.file.path,
+        photo: req.body.photo,
         status: "active",
         link: req.body.link,
         rules: req.body.rules,
@@ -58,7 +47,7 @@ exports.eventsCreateEvent = uplaod.single('photo'),(req, res) => {
         name: req.body.name,
         time: req.body.time,
         description: req.body.description,
-        photo: req.file.path,  
+        photo: req.body.photo,  
         trailer: req.body.trailer,
         rules: req.body.rules
     }).then(
