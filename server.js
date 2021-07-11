@@ -38,6 +38,7 @@ mongoose
 
 // routes imports
 require('./api/routes/clips')(app);
+require('./api/routes/upload')(app);
 require('./api/routes/events')(app);
 require('./api/routes/users')(app);
 
